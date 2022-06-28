@@ -102,18 +102,29 @@ char *transcriptValue( int val )
         char *result;
         int tens = val / 10;
             result = createSlice( __TENS[ tens - ( tens == 7 || tens == 9 ? 2 : 1 ) ], " " );
-            addSlice( result, __SPECIALS[ 0 ] );
-            addSlice( result, " " );
-            addSlice( result,  ( tens == 7 || tens == 9 ) ? __TWENTIES[ val % 10 - 1 ] : __UNITY[ val % 10 ] );
+            result = addSlice( result, __SPECIALS[ 0 ] );
+            result = addSlice( result, " " );
+            result = addSlice( result,  ( tens == 7 || tens == 9 ) ? __TWENTIES[ val % 10 - 1 ] : __UNITY[ val % 10 ] );
         return result;
     } 
     else if ( val < 1000 )
     {
-        char *result;
+        char 
+            *result;
             result = ( val / 100 ) > 1 ? createSlice( __UNITY[ val / 100 ], " " ) : createSlice( "", "" );
-            addSlice( result, __HUNDREDS[ 0 ] );
-            addSlice( result, " " );
-            addSlice( result, ( val % 100 == 0 ? "" : transcriptValue( val % 100 ) ) );
+            result = addSlice( result, __HUNDREDS[ 0 ] );
+            result = addSlice( result, " " );
+            result = addSlice( result, ( val % 100 == 0 ? "" : transcriptValue( val % 100 ) ) );
+        return result;
+    }
+    else if ( val < 1000000 )
+    {
+        char 
+            *result;
+            result = ( val / 100 ) > 1 ? createSlice( __UNITY[ val / 100 ], " " ) : createSlice( "", "" );
+            result = addSlice( result, __HUNDREDS[ 0 ] );
+            result = addSlice( result, " " );
+            result = addSlice( result, ( val % 100 == 0 ? "" : transcriptValue( val % 100 ) ) );
         return result;
     }
 } 

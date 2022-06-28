@@ -32,17 +32,16 @@ char *createSlice( char *str1, char *str2 )
         result = (char *) malloc( sizeof( char ) * ( strlen( str1 ) + strlen( str2 ) + 1 ) );
             strcat( result, str1 );
             strcat( result, str2 );
-        result [ strlen( result ) - 1 ] = '\0';
+        result[ strlen( result ) ] = '\0';
     return result;
 }
 
-void addSlice( char *str1, char *str2 )
+char * addSlice( char *str1, char *str2 )
 {
-    int length = strlen( str1 ) + strlen( str2 ) + 1;
+    int length = (int) strlen( str1 ) + (int) strlen( str2 ) + 1;
         str1 = ( char * ) realloc( str1, sizeof( char ) * length );
         strcat( str1, str2 );
-    str1[ length - 1 ] = '\0';
-    printf( "%s %s \n", str1, str2 );
+    return str1;
 }
 
 #endif
