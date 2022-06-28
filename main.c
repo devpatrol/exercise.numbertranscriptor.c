@@ -8,7 +8,7 @@ int main( int argc, char const *argv[] )
 {
     int i = 0;
     char 
-        *arr = transcript( "1128925932975923" );
+        *arr = transcript( "25480560.00025" );
         printf( "%s \n", arr );
     return 0;
 }

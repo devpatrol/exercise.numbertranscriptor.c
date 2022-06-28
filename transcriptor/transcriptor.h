@@ -78,9 +78,12 @@ char *getSign( char sign )
 {
     if ( sign == '-' )
     {
-        return __SPECIALS[ 2 ];
+        return createSlice( __SPECIALS[ 2 ], " " );
+    } else if ( sign == '+' ) 
+    {
+        return createSlice( __SPECIALS[ 3 ], " " );
     }
-    return __SPECIALS[ 3 ];
+    return createSlice( "", "" );
 }
 
 char *transcriptValue( long val )
@@ -172,10 +175,36 @@ char *transcriptInt( char *data )
 
 char *transcriptFloat( char *data )
 {
+    int i = 0, length;
     char 
-        *result;
-    data = popZero( data );
-    return transcriptValue( data == NULL ? 0 : atol( data ) );
+        *result,
+        *zero;
+        data = popZero( data );
+
+        if ( data == NULL ) 
+        {
+            return transcriptValue( 0 );
+        }
+
+        result = createSlice( "", "" );
+        zero = transcriptValue( 0 );
+        length = strlen( data );
+    for ( ; i < length; i++ )
+    {
+        if ( data[ i ] == '0' )  
+        {
+            result = addSlice( result, zero );
+            result = addSlice( result, " " );
+        } else 
+        {
+            zero = getResized( data, i, length );
+            if ( !strlen( zero ) )  
+            {
+                return result;
+            }
+            return addSlice( result, transcriptInt( zero ) );
+        }
+    }
 }
 
 char * transcript( char * data )
@@ -185,10 +214,19 @@ char * transcript( char * data )
         {
             sign = getSign( data[ 0 ] );
             data = getResized( data, 1, strlen( data ) );
-        }
+        } else sign = createSlice( "", "" );
         intHand = getIntHand( data );
         floatHand = getFloatHand( data );
-    return transcriptInt( intHand );
+
+        sign = addSlice( sign, transcriptInt( intHand ) );
+        if ( floatHand != NULL )
+        {
+            sign = addSlice( sign, " " );
+            sign = addSlice( sign, __SPECIALS[ 1 ] );
+            sign = addSlice( sign, " " );
+            sign = addSlice( sign, transcriptFloat( floatHand ) );
+        }
+    return sign;
 }
 
 #endif 
