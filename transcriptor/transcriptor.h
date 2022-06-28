@@ -83,19 +83,19 @@ char *getSign( char sign )
     return __SPECIALS[ 3 ];
 }
 
-char *transcriptValue( int val )
+char *transcriptValue( long val )
 {   
     if ( val < 10 ) 
     {
-        return __UNITY[ val ];
+        return createSlice( __UNITY[ val ], "" );
     } 
     else if ( val % 10 == 0 && val < 100 ) 
     {
-        return __TENS[ ( val / 10 ) - 1 ];
+        return createSlice( __TENS[ ( val / 10 ) - 1 ], "" );
     } 
     else if ( val < 20 )
     {
-        return __TWENTIES[ ( val % 10 ) - 1 ];   
+        return createSlice( __TWENTIES[ ( val % 10 ) - 1 ], "" );   
     }
     else if ( val < 100 ) 
     {
@@ -112,19 +112,54 @@ char *transcriptValue( int val )
         char 
             *result;
             result = ( val / 100 ) > 1 ? createSlice( __UNITY[ val / 100 ], " " ) : createSlice( "", "" );
-            result = addSlice( result, __HUNDREDS[ 0 ] );
-            result = addSlice( result, " " );
-            result = addSlice( result, ( val % 100 == 0 ? "" : transcriptValue( val % 100 ) ) );
+                result = addSlice( result, __HUNDREDS[ 0 ] );
+                if ( val % 100 ) 
+                {
+                    result = addSlice( result, " " );
+                    result = addSlice( result, transcriptValue( val % 100 ) );
+                }
         return result;
     }
     else if ( val < 1000000 )
     {
         char 
             *result;
-            result = ( val / 100 ) > 1 ? createSlice( __UNITY[ val / 100 ], " " ) : createSlice( "", "" );
-            result = addSlice( result, __HUNDREDS[ 0 ] );
-            result = addSlice( result, " " );
-            result = addSlice( result, ( val % 100 == 0 ? "" : transcriptValue( val % 100 ) ) );
+            result = ( val / 1000 ) > 1 ? transcriptValue( val / 1000 ) : createSlice( "", "" );
+                result = addSlice( result, " " );
+                result = addSlice( result, __HUNDREDS[ 1 ] );
+                if ( val % 1000 )
+                {
+                    result = addSlice( result, " " );
+                    result = addSlice( result, transcriptValue( val % 1000 ) );
+                }
+        return result;
+    }
+    else if ( val < 1000000000 )
+    {
+        char 
+            *result;
+            result = transcriptValue( val / 1000000 );
+                result = addSlice( result, " " );
+                result = addSlice( result, __HUNDREDS[ 2 ] );
+                if ( val % 1000000 )
+                {
+                    result = addSlice( result, " " );
+                    result = addSlice( result, transcriptValue( val % 1000000 ) );
+                }
+        return result;
+    }
+    else 
+    {
+        char 
+            *result;
+            result = transcriptValue( val / 1000000000 );
+                result = addSlice( result, " " );
+                result = addSlice( result, __HUNDREDS[ 3 ] );
+                if ( val % 1000000000 )
+                {
+                    result = addSlice( result, " " );
+                    result = addSlice( result, transcriptValue( val % 1000000000 ) );
+                }
         return result;
     }
 } 
@@ -132,7 +167,15 @@ char *transcriptValue( int val )
 char *transcriptInt( char *data )
 {
     data = shiftZero( data );
-    return transcriptValue( data == NULL ? 0 : atoi( data ) );
+    return transcriptValue( data == NULL ? 0 : atol( data ) );
+}
+
+char *transcriptFloat( char *data )
+{
+    char 
+        *result;
+    data = popZero( data );
+    return transcriptValue( data == NULL ? 0 : atol( data ) );
 }
 
 char * transcript( char * data )

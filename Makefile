@@ -4,7 +4,6 @@ all: build
 
 build: app
 	rm -rf *.o
-	clear
 	./app
 
 app: main.o

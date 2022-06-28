@@ -28,11 +28,12 @@ char *getResized( char *list, int start, int end )
 
 char *createSlice( char *str1, char *str2 )
 {
+    int length = strlen( str1 ) + strlen( str2 ) + 1;
     char *result;
-        result = (char *) malloc( sizeof( char ) * ( strlen( str1 ) + strlen( str2 ) + 1 ) );
+        result = (char *) malloc( sizeof( char ) * length );
             strcat( result, str1 );
             strcat( result, str2 );
-        result[ strlen( result ) ] = '\0';
+        result[ length - 1 ] = '\0';
     return result;
 }
 
