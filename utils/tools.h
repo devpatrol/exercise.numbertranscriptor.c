@@ -4,15 +4,20 @@
 #include <string.h>
 #include <stdlib.h>
 
-int getPosition( char *list, char el ) 
+int getIndex( char *list, char el, int start ) 
 {
-    int i = 1;
+    int i = start;
         for( ; i < strlen( list ); i++ ) 
         {
             if ( list[ i ] == el )
                 return i;
         }
     return -1;
+}
+
+int getPosition( char *list, char el ) 
+{
+    return getIndex( list, el, 1 );
 }
 
 char *getResized( char *list, int start, int end )
@@ -37,7 +42,7 @@ char *createSlice( char *str1, char *str2 )
     return result;
 }
 
-char * addSlice( char *str1, char *str2 )
+char *addSlice( char *str1, char *str2 )
 {
     int length = (int) strlen( str1 ) + (int) strlen( str2 ) + 1;
         str1 = ( char * ) realloc( str1, sizeof( char ) * length );

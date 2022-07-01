@@ -5,6 +5,7 @@
         "transcriptor.h": "c",
         "stdlib.h": "c",
         "tools.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "analyser.h": "c"
     }
 }

@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "../utils/tools.h"
-#include "lang.h"
+#include "../utils/lang.h"
 
 char *getIntHand( char *list ) 
 {
@@ -207,7 +207,7 @@ char *transcriptFloat( char *data )
     }
 }
 
-char * transcript( char * data )
+char *transcript( char * data )
 {
     char *sign, *intHand, *floatHand;
         if ( data[ 0 ] == '-' || data[ 0 ] == '+' ) 
