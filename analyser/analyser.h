@@ -89,108 +89,103 @@ char *removeSpaceAndNotNeeded( char *data )
     return NULL;
 }
 
+char *createError( char *message, char error, int position )
+{
+    char *err = createSlice( message, (char []) { error } );
+        err = createSlice( err, " at position" );
+        sprintf( err, "%s %d", err, position );
+    return err;
+}
+
 char *checkFormat( char *data )
 {
     int length = (int) strlen( data ), i = 0;
     int sign = 0, equal = 0, innerNumber = 0, innerFloat = 0;
     int openingBraquet = 0, closingBraquet = 0, symbol = 0;
     char 
-        *err, val;
+        val, other;
             for ( ; i < length; i++ )
             {
                 val = data[ i ];
-                if ( val == ')' )
+                
+                if ( val == '*' || val == '/' ) 
                 {
-                    closingBraquet++;
-                    if ( openingBraquet < closingBraquet )
+                    symbol++;
+                    if ( i == 0 || ( data[ i - 1 ] != ')' && !isNumber( data[ i - 1 ] ) ) || data[ i - 1 ] == '=' )
                     {
-                        err = createSlice( "Error: ) without (", "" );
-                        return err;
-                    }
-                }
-
-                if ( val == '(' ) 
-                {
-                    openingBraquet++;
-                    if ( innerNumber ) 
+                        return createError( "Invalid operator ", val, i );
+                    } 
+                    else if ( innerNumber ) 
                     {
                         innerNumber--;
-                    }
-
-                    if ( innerFloat ) 
-                    {
-                        innerFloat--;
+                        if ( innerFloat )
+                        {
+                            innerFloat--;
+                        }
                     }
                 }
 
-                if ( isNumber( val ) )
+                if ( isNumber( val ) ) 
                 {
-                    if ( !innerNumber )
-                    {
-                        innerNumber++;
-                        if ( sign ) 
-                        {
-                            sign--;
-                        }
-                    }
+                    innerNumber++;
                 }
 
                 if ( val == '.' )
                 {
                     innerFloat++;
-                    if ( !innerNumber || innerFloat > 1 )
+                    if ( !innerNumber || innerFloat > 1 ) {
+                        return createError( "Invalid Symbol: ", val, i );
+                    }
+                }
+
+                if ( val == '(' || val == ')' )
+                {
+                    if ( innerNumber ) 
                     {
-                        err = createSlice( "Invalid float sign ", (char []) { val } );
-                            err = createSlice( err, " at position" );
-                            sprintf( err, "%s %d", err, i );
-                        return err;
+                        innerNumber--;
+                        if ( innerFloat )
+                        {
+                            innerFloat--;
+                        }
+                    } 
+                    
+                    if ( val == '(' )
+                    {
+                        openingBraquet++;
+                    } 
+                    else if ( val == ')' )
+                    {
+                        closingBraquet++;
+                        if ( i == 0 || !openingBraquet || openingBraquet < closingBraquet ) 
+                        {
+                            return createError( "Invalid Symbol: ", val, i );
+                        }
+                    }
+                }
+
+                if ( val == '=' )
+                {
+                    equal++;
+                    if ( equal > 1 )
+                    {
+                        return createError( "Invalid equality: ", val, i );
                     }
                 }
 
                 if ( val == '+' || val == '-' )
                 {
-                    sign++;
-                    if ( sign >= 3 ) 
+                    if ( i > 0 ) 
                     {
-                        err = createSlice( "Invalid sign ", (char []) { val } );
-                            err = createSlice( err, " at position" );
-                            sprintf( err, "%s %d", err, i );
-                        return err;
-                    }
-
-                    if ( symbol ) {
-                        symbol--;
-                    }
-                }
-
-                if ( val == '*' || val == '/' ) 
-                {
-                    symbol++;
-
-                    if ( symbol > 1 )
-                    {
-                        err = createSlice( "Invalid sign ", (char []) { val } );
-                            err = createSlice( err, " at position" );
-                            sprintf( err, "%s %d", err, i );
-                        return err;
-                    }
-
-                    if ( sign )
-                    {
-                        err = createSlice( "Invalid sign ", (char []) { val } );
-                            err = createSlice( err, " at position" );
-                            sprintf( err, "%s %d", err, i );
-                        return err;   
-                    }
-
-                    if ( innerNumber ) 
-                    {
-                        innerNumber--;
-                    }
-
-                    if ( innerFloat ) 
-                    {
-                        innerFloat--;
+                        if ( i == length - 1 )
+                        {
+                            return createError( "Invalid sign: ", val, i );
+                        }
+                        else if ( !isNumber( data[ i - 1 ] ) && !isNumber( data[ i + 1 ] ) ) {
+                            if ( data[ i + 1 ] != '(' )
+                            {
+                                return createError( "Invalid sign: ", val, i );   
+                            }
+                        }
                     }
                 }
             }

@@ -15,7 +15,7 @@ int main( int argc, char const *argv[] )
     
     char 
         *err,
-        *data = createSlice( "+1*45+*(45+1)-((4-3)*(4/6))=255", "" );
+        *data = createSlice( "+1*4.55+(45+1)-((4-3)*(4/-6))=-6(255*-6/2)", "" );
             err = analyse( data );
         printf( ":%s:\n", err == NULL ? "NULL" : err );
         printf( ":%s:\n", data );
