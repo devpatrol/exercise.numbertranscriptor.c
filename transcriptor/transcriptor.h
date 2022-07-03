@@ -240,9 +240,9 @@ char *transcriptSymbol( char symbol )
         case '=': 
         {
             return __SPECIALS[ 7 ];
-        }
+        }        
     }
-    return __SPECIALS[ 0 ];
+    return __SPECIALS[ 8 ];
 }
 
 char *transcript( char * data )

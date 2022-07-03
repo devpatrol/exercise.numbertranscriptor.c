@@ -40,7 +40,7 @@ char __HUNDREDS[][10] = {
 
 char __SPECIALS[][20] = {
     "et", "virgule", "moins", "plus", "divisé par", 
-    "fois", "facteur de", "egal à"
+    "fois", "facteur de", "egal à", "le tout"
 };
 
 #endif

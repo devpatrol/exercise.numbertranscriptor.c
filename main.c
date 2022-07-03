@@ -22,8 +22,11 @@ char *number_transcriptor( char *data )
 
 int main( int argc, char const *argv[] )
 {
+    char *data;
+        printf( ">>> Quelle Expression voulez-vous transcrire?" );
+        printf( ">>> " );
     char 
-        *arr = number_transcriptor( "(4*5)(45*6)*25" );
+        *arr = number_transcriptor( "25(4*5)*(45*6) * 25" );
         printf( "%s \n", arr );
     return 0;
 }

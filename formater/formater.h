@@ -46,7 +46,12 @@ char *formatPart( char *data )
                     if ( !factor )
                     {
                         part = getResized( data, start + 1, i - 1 );
-                        result = addSlice( result, transcriptSymbol( data[ start ] ) );
+
+                        if ( start != 0 && data[ start - 1 ] != '+' && data[ start - 1 ] != '/' && data[ start - 1 ] != '-' ) 
+                        {
+                            result = addSlice( result, transcriptSymbol( data[ start ] ) );
+                        }
+
                         result = addSlice( result, " " );
                         result = addSlice( result, formatPart( part ) );
                     }
@@ -54,6 +59,16 @@ char *formatPart( char *data )
             }
             else if ( data[ i ] != '.' && !factor )
             {
+                if ( data[ i + 1 ] == '(' && data[ i ] == '*' ) 
+                {
+                    continue;
+                }
+                else if ( i > 0 && data[ i - 1 ] == ')' && data[ i + 1 ] != '(' ) 
+                {
+                    result = addSlice( result, transcriptSymbol( ':' ) );  
+                    result = addSlice( result, " " ); 
+                }
+                
                 result = addSlice( result, transcriptSymbol( data[ i ] ) );
                 result = addSlice( result, " " );
             }

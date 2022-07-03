@@ -107,7 +107,7 @@ char *checkFormat( char *data )
                 if ( val == '*' || val == '/' ) 
                 {
                     symbol++;
-                    if ( i == 0 || ( data[ i - 1 ] != ')' && !isNumber( data[ i - 1 ] ) ) || data[ i - 1 ] == '=' )
+                    if ( i == 0 || i == length - 1 || ( data[ i - 1 ] != ')' && !isNumber( data[ i - 1 ] ) ) || data[ i - 1 ] == '=' )
                     {
                         return createError( "Invalid operator ", val, i );
                     } 
@@ -129,7 +129,7 @@ char *checkFormat( char *data )
                 if ( val == '.' )
                 {
                     innerFloat++;
-                    if ( !innerNumber || innerFloat > 1 ) {
+                    if ( !innerNumber || innerFloat > 1 || i == length -1 || !isNumber( data[ i + 1 ] ) ) {
                         return createError( "Invalid Symbol: ", val, i );
                     }
                 }
