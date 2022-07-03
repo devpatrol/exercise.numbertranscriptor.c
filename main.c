@@ -20,13 +20,29 @@ char *number_transcriptor( char *data )
     return format( result );
 }
 
+char *getString()
+{
+    char *result, item;
+        result = createSlice( "", "" );
+        scanf( "%c", &item );
+        while ( item != '\n' )
+        {
+            result = addSlice( result, ( char[] ){ item } );
+            scanf( "%c", &item );
+        }
+    return result;
+}
+
 int main( int argc, char const *argv[] )
 {
     char *data;
+        printf( "\n\n" );
         printf( ">>> Quelle Expression voulez-vous transcrire?" );
+        printf( "\n" );
         printf( ">>> " );
-    char 
-        *arr = number_transcriptor( "25(4*5)*(45*6) * 25" );
-        printf( "%s \n", arr );
+            data = getString();
+            data = number_transcriptor( data );
+        printf( ">>> %s", data );
+        printf( "\n\n" );
     return 0;
 }
