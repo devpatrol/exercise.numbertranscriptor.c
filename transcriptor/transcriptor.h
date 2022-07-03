@@ -7,6 +7,14 @@
 #include "../utils/tools.h"
 #include "../utils/lang.h"
 
+/**
+    * @brief Get the Int Hand object
+    * 
+    * @param list 
+    * @return char* 
+    * *
+    * return the int part of a number
+*/
 char *getIntHand( char *list ) 
 {
     int length = strlen( list );
@@ -20,6 +28,14 @@ char *getIntHand( char *list )
 }
 
 
+/**
+    * @brief Get the Float Hand object
+    * 
+    * @param list 
+    * @return char* 
+    * *
+    * return the float part of a number
+*/
 char *getFloatHand( char *list ) 
 {
     int point = getPosition( list, '.' );
@@ -36,6 +52,16 @@ char *getFloatHand( char *list )
     return result;
 } 
 
+/**
+    * @brief 
+    * 
+    * @param list 
+    * @return char* 
+    * *
+    * remove zero at the beginning of a
+    * number
+    * Ex: 0025 -> 25
+*/
 char *shiftZero( char *list )
 {
     if ( list[ 0 ] != '0' )
@@ -56,6 +82,15 @@ char *shiftZero( char *list )
     return NULL;
 }
 
+/**
+    * @brief 
+    * 
+    * @param list 
+    * @return char* 
+    * *
+    * remove zero at the end of the number
+    * Ex: 0.245000 -> 0.245
+*/
 char *popZero( char *list )
 {
     int 
@@ -75,6 +110,15 @@ char *popZero( char *list )
     return NULL;
 }
 
+/**
+    * @brief Get the Sign object
+    * 
+    * @param sign 
+    * @return char* 
+    * *
+    * return the text matching with
+    * the sign
+*/
 char *getSign( char sign )
 {
     if ( sign == '-' )
@@ -87,6 +131,15 @@ char *getSign( char sign )
     return createSlice( "", "" );
 }
 
+/**
+    * @brief 
+    * 
+    * @param val 
+    * @return char* 
+    * *
+    * this function will transcript
+    * a number 
+*/
 char *transcriptValue( long val )
 {   
     if ( val < 10 ) 
@@ -168,12 +221,30 @@ char *transcriptValue( long val )
     }
 } 
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * transcript the int part of the
+    * number
+*/
 char *transcriptInt( char *data )
 {
     data = shiftZero( data );
     return transcriptValue( data == NULL ? 0 : atol( data ) );
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * transcript the float part 
+    * of the number
+*/
 char *transcriptFloat( char *data )
 {
     int i = 0, length;
@@ -208,6 +279,14 @@ char *transcriptFloat( char *data )
     }
 }
 
+/**
+    * @brief 
+    * 
+    * @param symbol 
+    * @return char* 
+    * * 
+    * transcript a symbol
+*/
 char *transcriptSymbol( char symbol ) 
 {
     switch( symbol ) 
@@ -245,6 +324,15 @@ char *transcriptSymbol( char symbol )
     return __SPECIALS[ 8 ];
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * this function is the one to call
+    * to transcript a float
+*/
 char *transcript( char * data )
 {
     char *sign, *intHand, *floatHand;

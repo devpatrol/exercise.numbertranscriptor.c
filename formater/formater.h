@@ -6,6 +6,15 @@
 #include "../transcriptor/transcriptor.h"
 #include "../utils/tools.h"
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * This function will be use to
+    * format a part of the egality
+*/
 char *formatPart( char *data )
 {
     int i = 0, length = strlen( data ), numb = -1, factor = 0, start = 0;
@@ -85,6 +94,15 @@ char *formatPart( char *data )
     return result;
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * return the value of the 
+    * transcription
+*/
 char *format( char *data )
 {
     int res = getPosition( data, '=' );

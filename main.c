@@ -6,6 +6,15 @@
 #include "formater/formater.h"
 #include "utils/tools.h"
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * this function will transcript any mathematics
+    * expression from mathematics to litteral
+*/
 char *number_transcriptor( char *data )
 {
     char *result, *err;
@@ -20,6 +29,14 @@ char *number_transcriptor( char *data )
     return format( result );
 }
 
+/**
+    * @brief Get the String object
+    * 
+    * @return char* 
+    * *
+    * this function will get a string from
+    * the standart input output
+*/
 char *getString()
 {
     char *result, item;

@@ -1,10 +1,35 @@
 #ifndef H_ANALYSER
 #define H_ANALYSER
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * this file will group all functions
+    * required to check the validity of 
+    * an input
+*/
+
 #include <string.h>
 #include <stdio.h>
 #include "../utils/lang.h"
 #include "../utils/tools.h"
+
+
+
+/**
+    * @brief Get the None List Member object
+    * 
+    * @param maches 
+    * @param list 
+    * @return char 
+    * *
+    * this function willreturn the first member
+    * of the second list wich is not inside 
+    * the first one
+*/
 
 char getNoneListMember( char *maches, char *list )
 {
@@ -20,6 +45,17 @@ char getNoneListMember( char *maches, char *list )
     return result;
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char 
+    * *
+    * this function will be use to check
+    * if all member of the parameter are
+    * the numbers if these is not the right
+    * this function will return the wrong caracter
+*/
 char checkNoneNumber( char *data )
 {
     return getNoneListMember( __NUMBERS, data );
@@ -30,6 +66,15 @@ char checkNoneNumberAndCaracteres( char *data )
     return getNoneListMember( __NUMBERS_CARACTERES, data );
 }
 
+/**
+    * @brief 
+    * 
+    * @param item 
+    * @return int 
+    * *
+    * test if the char parameter is a number
+    * then return 0 or 1 if that's right
+*/
 int isNumber( char item )
 {
     int 
@@ -37,6 +82,15 @@ int isNumber( char item )
     return result > -1 ? 1 : 0;
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char*
+    * *
+    * will remove all spaces inside 
+    * an expression 
+*/
 char *removeSpaceAndNotNeeded( char *data )
 {
     char *result;
@@ -85,6 +139,18 @@ char *removeSpaceAndNotNeeded( char *data )
     return NULL;
 }
 
+/**
+    * @brief Create a Error object
+    * 
+    * @param message 
+    * @param error 
+    * @param position 
+    * @return char* 
+    * *
+    * this function will be use to create 
+    * an error which will be render to the
+    * user
+*/
 char *createError( char *message, char error, int position )
 {
     char *err = createSlice( message, (char []) { error } );
@@ -93,6 +159,15 @@ char *createError( char *message, char error, int position )
     return err;
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * this function will be use to 
+    * check the format of the expression
+*/
 char *checkFormat( char *data )
 {
     int length = (int) strlen( data ), i = 0;
@@ -193,6 +268,16 @@ char *checkFormat( char *data )
     return NULL;
 }
 
+/**
+    * @brief 
+    * 
+    * @param data 
+    * @return char* 
+    * *
+    * will change data in removing spaces
+    * and if there is an error, the error,
+    * will be returned
+*/
 char *analyse( char *data )
 {
     char 
