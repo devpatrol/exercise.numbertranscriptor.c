@@ -13,11 +13,6 @@ char __NUMBERS[] = {
     '7', '8', '9', '\0'
 };
 
-char __SPECIAL_CARACTERES[] = {
-    ' ', '.', '+', '*', '/', '-', '{', '}', 
-    '(', ')', '=', '\0'
-};
-
 char __NUMBERS_CARACTERES[] = {
     ' ', '.', '+', '*', '/', '-', '{', '}', 
     '(', ')', '=', '0', '1', '2', '3', '4', '5', '6', 
@@ -45,7 +40,7 @@ char __HUNDREDS[][10] = {
 
 char __SPECIALS[][20] = {
     "et", "virgule", "moins", "plus", "divisé par", 
-    "multiplié par", "facteur de", "egal à"
+    "fois", "facteur de", "egal à"
 };
 
 #endif

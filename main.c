@@ -2,22 +2,28 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "transcriptor/transcriptor.h"
 #include "analyser/analyser.h"
+#include "formater/formater.h"
 #include "utils/tools.h"
+
+char *number_transcriptor( char *data )
+{
+    char *result, *err;
+        result = createSlice( data, "" );
+        err = analyse( result );
+
+        if ( err != NULL ) 
+        {
+            return err;
+        }
+
+    return format( result );
+}
 
 int main( int argc, char const *argv[] )
 {
-    int i = 0;
-    /*char 
-        *arr = transcript( "25480560.00025" );
-        printf( "%s \n", arr );*/
-    
     char 
-        *err,
-        *data = createSlice( "+1*4.55+(45+1)-((4-3)*(4/-6))=-6(255*-6/2)", "" );
-            err = analyse( data );
-        printf( ":%s:\n", err == NULL ? "NULL" : err );
-        printf( ":%s:\n", data );
+        *arr = number_transcriptor( "(4*5)(45*6)*25" );
+        printf( "%s \n", arr );
     return 0;
 }

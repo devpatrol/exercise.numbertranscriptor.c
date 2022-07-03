@@ -3,6 +3,7 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "../utils/tools.h"
 #include "../utils/lang.h"
 
@@ -205,6 +206,43 @@ char *transcriptFloat( char *data )
             return addSlice( result, transcriptInt( zero ) );
         }
     }
+}
+
+char *transcriptSymbol( char symbol ) 
+{
+    switch( symbol ) 
+    {
+        case '+': 
+        {
+            return __SPECIALS[ 3 ];
+        }
+
+        case '-': 
+        {
+            return __SPECIALS[ 2 ];
+        }
+
+        case '/': 
+        {
+            return __SPECIALS[ 4 ];
+        }
+
+        case '*': 
+        {
+            return __SPECIALS[ 5 ];
+        }
+
+        case '(': 
+        {
+            return __SPECIALS[ 6 ];
+        }
+
+        case '=': 
+        {
+            return __SPECIALS[ 7 ];
+        }
+    }
+    return __SPECIALS[ 0 ];
 }
 
 char *transcript( char * data )

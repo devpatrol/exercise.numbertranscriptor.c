@@ -6,6 +6,8 @@
         "stdlib.h": "c",
         "tools.h": "c",
         "string.h": "c",
-        "analyser.h": "c"
+        "analyser.h": "c",
+        "lang.h": "c",
+        "formater.h": "c"
     }
 }

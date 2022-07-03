@@ -2,6 +2,7 @@
 #define H_ANALYSER
 
 #include <string.h>
+#include <stdio.h>
 #include "../utils/lang.h"
 #include "../utils/tools.h"
 
@@ -24,21 +25,16 @@ char checkNoneNumber( char *data )
     return getNoneListMember( __NUMBERS, data );
 }
 
+char checkNoneNumberAndCaracteres( char *data )
+{
+    return getNoneListMember( __NUMBERS_CARACTERES, data );
+}
+
 int isNumber( char item )
 {
     int 
         result = getIndex( __NUMBERS, item, 0 );
     return result > -1 ? 1 : 0;
-}
-
-char checkNoneCaracteres( char *data )
-{
-    return getNoneListMember( __SPECIAL_CARACTERES, data );
-}
-
-char checkNoneNumberAndCaracteres( char *data )
-{
-    return getNoneListMember( __NUMBERS_CARACTERES, data );
 }
 
 char *removeSpaceAndNotNeeded( char *data )
@@ -156,7 +152,7 @@ char *checkFormat( char *data )
                     else if ( val == ')' )
                     {
                         closingBraquet++;
-                        if ( i == 0 || !openingBraquet || openingBraquet < closingBraquet ) 
+                        if ( i == 0 || !openingBraquet || openingBraquet < closingBraquet || data[ i - 1 ] == '(' ) 
                         {
                             return createError( "Invalid Symbol: ", val, i );
                         }
@@ -166,7 +162,7 @@ char *checkFormat( char *data )
                 if ( val == '=' )
                 {
                     equal++;
-                    if ( equal > 1 )
+                    if ( equal > 1 || i == 0 || i == length - 1 )
                     {
                         return createError( "Invalid equality: ", val, i );
                     }
@@ -188,6 +184,11 @@ char *checkFormat( char *data )
                         }
                     }
                 }
+            }
+
+            if ( openingBraquet != closingBraquet ) 
+            {
+                return createError( "Invalid Symbol: ", '(', i );   
             }
     return NULL;
 }
